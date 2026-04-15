@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Mali', cursive;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,
+                    #FACEE5 0%, #FAD9EA 25%,
+                    #FFF0F8 50%,
+                    #FAD9EA 75%, #FACEE5 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            opacity: 0;
+            animation: floatUp linear infinite;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.65;
+            }
+
+            90% {
+                opacity: 0.45;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* ===== PAGE 1 ===== */
+        #page1 {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            animation: fadeUp 0.9s ease;
+            transition: gap 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #page1.opened {
+            gap: 0px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 90vw;
+            max-width: 420px;
+            padding-top: 0px;
+            transition: padding-top 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #page1.opened .envelope-wrapper {
+            padding-top: 230px;
+        }
+
+        /* ===== ENVELOPE ===== */
+        .envelope-scene {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            perspective: 800px;
+        }
+
+        .envelope-body {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.62);
+            backdrop-filter: blur(18px);
+            border-radius: 0 0 24px 24px;
+            border: 1.5px solid rgba(255, 182, 213, 0.45);
+            box-shadow: 0 25px 60px rgba(213, 123, 166, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+        }
+
+        .envelope-body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(250, 206, 229, 0.18) 50%, transparent 50%),
+                linear-gradient(225deg, rgba(250, 206, 229, 0.18) 50%, transparent 50%);
+        }
+
+        .envelope-body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(213, 123, 166, 0.1) 1.5px, transparent 1.5px);
+            background-size: 22px 22px;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            transform-origin: top center;
+            transform-style: preserve-3d;
+            transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .envelope-flap-face {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 240, 248, 0.72);
+            backdrop-filter: blur(18px);
+            border: 1.5px solid rgba(255, 182, 213, 0.4);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .envelope-flap-face::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(250, 206, 229, 0.55), rgba(255, 255, 255, 0.05));
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .envelope-flap.open {
+            transform: rotateX(-180deg);
+        }
+
+        /* ===== LETTER CARD ===== */
+        .letter {
+            position: absolute;
+            top: 0;
+            left: 8%;
+            width: 84%;
+            background: linear-gradient(160deg, #fff 70%, #FFF0F8 100%);
+            border-radius: 20px;
+            padding: 24px 22px 20px;
+            box-shadow: 0 8px 40px rgba(213, 123, 166, 0.22), 0 2px 8px rgba(213, 123, 166, 0.1);
+            border: 1.5px solid rgba(213, 123, 166, 0.18);
+            text-align: center;
+            transform: translateY(250px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) 0.4s,
+                opacity 0.5s ease 0.4s;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .letter::before {
+            content: "✦  ✦  ✦";
+            display: block;
+            font-size: 10px;
+            color: rgba(213, 123, 166, 0.4);
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .letter.slide-up {
+            pointer-events: auto;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .image-wrapper {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 12px;
+            animation: floatBob 3.5s ease-in-out infinite;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(213, 123, 166, 0.3));
+        }
+
+        .letter-text {
+            color: #D57BA6;
+            font-size: 18px;
+            margin-bottom: 12px;
+            min-height: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .typing::after {
+            content: "|";
+            margin-left: 3px;
+            animation: blink 1s infinite;
+        }
+
+        .divider {
+            width: 55%;
+            height: 1px;
+            margin: 10px auto;
+            background: linear-gradient(to right, transparent, rgba(213, 123, 166, 0.35), transparent);
+            position: relative;
+        }
+
+        .divider::before {
+            content: "♡";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            color: rgba(213, 123, 166, 0.55);
+            background: white;
+            padding: 0 6px;
+        }
+
+        /* ซีล */
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #E887B8, #D57BA6);
+            border-radius: 50%;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 14px rgba(213, 123, 166, 0.55), 0 0 0 4px rgba(255, 255, 255, 0.6);
+            transition: opacity 0.3s, transform 0.3s;
+            animation: sealPulse 2s ease-in-out infinite;
+        }
+
+        .seal svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .seal.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        @keyframes sealPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 3px 14px rgba(213, 123, 166, 0.55), 0 0 0 4px rgba(255, 255, 255, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 3px 22px rgba(213, 123, 166, 0.8), 0 0 0 7px rgba(255, 255, 255, 0.35);
+            }
+        }
+
+        /* ปุ่มเปิด */
+        .btn-open {
+            background: linear-gradient(135deg, #E887B8, #D57BA6);
+            color: white;
+            border: none;
+            padding: 15px 48px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-family: 'Mali', cursive;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 28px rgba(213, 123, 166, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-open:hover {
+            transform: scale(1.06);
+            box-shadow: 0 14px 38px rgba(213, 123, 166, 0.65);
+        }
+
+        .btn-open:active {
+            transform: scale(0.97);
+        }
+
+        .btn-open.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+
+        /* ปุ่มรับของขวัญ */
+        .btn-gift {
+            margin-top: 12px;
+            background: linear-gradient(135deg, #E887B8, #D57BA6);
+            color: white;
+            border: none;
+            padding: 11px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: 'Mali', cursive;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(213, 123, 166, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            opacity: 0;
+            transition: opacity 0.4s ease 1.2s, transform 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-gift:hover {
+            transform: scale(1.06);
+        }
+
+        .btn-gift:active {
+            transform: scale(0.97);
+        }
+
+        .letter.slide-up .btn-gift {
+            opacity: 1;
+        }
+
+        /* confetti canvas */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+
+        @keyframes floatBob {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-9px)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+    <div id="particles"></div>
+
+    <div id="page1">
+        <div class="envelope-wrapper">
+            <div class="letter" id="letter">
+                <div class="image-wrapper">
+                    <img src="img/image1.png" alt="ของขวัญ">
+                </div>
+                <div class="letter-text">
+                    <span id="typing-text" class="typing"></span>
+                </div>
+                <div class="divider"></div>
+                <button class="btn-gift" id="btnGift">รับของขวัญ</button>
+            </div>
+
+            <div class="envelope-scene">
+                <div class="envelope-body"></div>
+                <div class="envelope-flap" id="flap">
+                    <div class="envelope-flap-face"></div>
+                </div>
+                <div class="seal" id="seal">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-open" id="btnOpen">เปิดซองจดหมาย</button>
+    </div>
+
+    <script>
+        /* ===== FLOATING PARTICLES ===== */
+        const symbols = ['♡', '★', '✦', '◦', '•', '˚', '✿', '⊹', '✸', '❀'];
+        const pColors = ['#F4A7C8', '#F9C9DE', '#C9B3F0', '#A8D8F0', '#F0C9A8', '#B8EDD6', '#FFD6EC'];
+        const pContainer = document.getElementById('particles');
+
+        function makeParticle() {
+            const el = document.createElement('span');
+            el.className = 'particle';
+            el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            const dur = 8 + Math.random() * 10;
+            const size = 10 + Math.random() * 14;
+            el.style.cssText = `
+        left:${Math.random() * 100}vw;
+        bottom:-30px;
+        color:${pColors[Math.floor(Math.random() * pColors.length)]};
+        font-size:${size}px;
+        animation-duration:${dur}s;
+        animation-delay:${Math.random() * dur}s;
+      `;
+            pContainer.appendChild(el);
+            setTimeout(() => el.remove(), (dur + 4) * 1000);
+        }
+        for (let k = 0; k < 24; k++) makeParticle();
+        setInterval(makeParticle, 750);
+
+        /* ===== ENVELOPE ===== */
+        const flap = document.getElementById('flap');
+        const letter = document.getElementById('letter');
+        const seal = document.getElementById('seal');
+        const btnOpen = document.getElementById('btnOpen');
+        const btnGift = document.getElementById('btnGift');
+        const typingEl = document.getElementById('typing-text');
+        const page1 = document.getElementById('page1');
+        let opened = false;
+
+        btnOpen.addEventListener('click', () => {
+            if (opened) return;
+            opened = true;
+            seal.classList.add('hidden');
+            btnOpen.classList.add('hidden');
+            page1.classList.add('opened');
+            setTimeout(() => flap.classList.add('open'), 200);
+            setTimeout(() => { letter.classList.add('slide-up'); typeText(); }, 800);
+        });
+
+        const text = "มีของขวัญมาส่ง";
+        let i = 0;
+        function typeText() {
+            if (i < text.length) {
+                typingEl.innerHTML += text.charAt(i++);
+                setTimeout(typeText, 75);
+            } else {
+                typingEl.classList.remove('typing');
+            }
+        }
+
+        /* ===== CONFETTI ===== */
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let pieces = [], animId = null;
+        const cColors = ['#F4A7C8', '#F9C9DE', '#C9B3F0', '#FFD6E7', '#A8D8F0', '#FFE4A0', '#B8EDD6', '#FFADCA'];
+        const shapes = ['heart', 'star', 'circle', 'rect'];
+
+        function initConfetti() {
+            canvas.style.display = 'block';
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            pieces = [];
+            for (let k = 0; k < 160; k++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: -10 - Math.random() * 350,
+                    vx: (Math.random() - 0.5) * 3.5,
+                    vy: 1.8 + Math.random() * 3.5,
+                    size: 6 + Math.random() * 9,
+                    color: cColors[Math.floor(Math.random() * cColors.length)],
+                    shape: shapes[Math.floor(Math.random() * shapes.length)],
+                    rot: Math.random() * Math.PI * 2,
+                    rotV: (Math.random() - 0.5) * 0.12,
+                    alpha: 1,
+                    wobble: Math.random() * Math.PI * 2,
+                });
+            }
+            if (animId) cancelAnimationFrame(animId);
+            drawConfetti();
+        }
+
+        function drawHeart(cx, cy, r) {
+            ctx.beginPath();
+            ctx.moveTo(cx, cy + r * 0.3);
+            ctx.bezierCurveTo(cx, cy, cx - r, cy, cx - r, cy - r * 0.5);
+            ctx.bezierCurveTo(cx - r, cy - r * 1.2, cx, cy - r * 1.2, cx, cy - r * 0.5);
+            ctx.bezierCurveTo(cx, cy - r * 1.2, cx + r, cy - r * 1.2, cx + r, cy - r * 0.5);
+            ctx.bezierCurveTo(cx + r, cy, cx, cy, cx, cy + r * 0.3);
+            ctx.fill();
+        }
+        function drawStar(cx, cy, r) {
+            ctx.beginPath();
+            for (let s = 0; s < 5; s++) {
+                const a1 = (s * 2 * Math.PI / 5) - Math.PI / 2;
+                const a2 = a1 + Math.PI / 5;
+                ctx.lineTo(cx + r * Math.cos(a1), cy + r * Math.sin(a1));
+                ctx.lineTo(cx + r * 0.45 * Math.cos(a2), cy + r * 0.45 * Math.sin(a2));
+            }
+            ctx.closePath(); ctx.fill();
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let alive = false;
+            pieces.forEach(p => {
+                p.x += p.vx + Math.sin(p.wobble) * 0.9;
+                p.y += p.vy;
+                p.rot += p.rotV;
+                p.wobble += 0.06;
+                p.vy += 0.04;
+                if (p.y > canvas.height - 50) p.alpha -= 0.022;
+                if (p.alpha <= 0) return;
+                alive = true;
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rot);
+                if (p.shape === 'heart') drawHeart(0, 0, p.size * 0.6);
+                else if (p.shape === 'star') drawStar(0, 0, p.size * 0.7);
+                else if (p.shape === 'circle') { ctx.beginPath(); ctx.arc(0, 0, p.size * 0.5, 0, Math.PI * 2); ctx.fill(); }
+                else { ctx.fillRect(-p.size * 0.4, -p.size * 0.25, p.size * 0.8, p.size * 0.5); }
+                ctx.restore();
+            });
+            if (alive) animId = requestAnimationFrame(drawConfetti);
+            else { canvas.style.display = 'none'; ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        }
+
+        btnGift.addEventListener('click', () => {
+            initConfetti();
+            // TODO: เขียน action หน้า 2 ได้ที่นี่
+        });
+    </script>
+</body>
+
+</html>
