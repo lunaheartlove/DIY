@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Mali', cursive;
         }
 
         body {
-            background: linear-gradient(
-                135deg,
-                #FFD6EA,
-                #DFF2FB,
-                #F3E4FF
-            );
-            background-attachment: fixed;
-            font-family: Arial;
-
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg,
+                    #FFB3D1,
+                    #BFE7FF,
+                    #E2C6FF);
+            overflow: hidden;
+            position: relative;
         }
 
         .card {
@@ -28,7 +34,7 @@
             padding: 20px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
         }
 
@@ -49,4 +55,5 @@
     </div>
 
 </body>
+
 </html>
