@@ -17,15 +17,12 @@
         body {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg,
                     #FFB3D1,
                     #BFE7FF,
                     #E2C6FF);
-            overflow: hidden;
-            position: relative;
         }
 
         .card {
@@ -36,12 +33,40 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            color: #3A3A4A;
         }
 
         .card img {
             width: 100%;
             border-radius: 15px;
             margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #6B6B8A;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: #FF8FB1;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 999px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(255, 143, 177, 0.35);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 143, 177, 0.45);
         }
     </style>
 </head>
@@ -50,8 +75,10 @@
 
     <div class="card">
         <img src="img/image1.png" alt="test image">
-        <h2>Sweet Theme 🍬</h2>
+        <h2>Sweet Theme</h2>
         <p>โทน Cotton Candy น่ารักมาก!</p>
+
+        <button class="btn">หน้าต่อไป</button>
     </div>
 
 </body>
