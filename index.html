@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOVE</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -20,20 +21,33 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg,
-                    #FFB3D1,
-                    #BFE7FF,
-                    #E2C6FF);
+                    #E7DCFC,
+                    #F8D5F8,
+                    #FFF0F5);
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.9);
+            background: linear-gradient(145deg,
+                    rgba(255, 255, 255, 0.7),
+                    rgba(255, 255, 255, 0.4));
             width: 300px;
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 25px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 0 25px rgba(255, 182, 193, 0.25);
+
+            backdrop-filter: blur(15px);
             color: #3A3A4A;
+
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
         }
 
         .card img {
@@ -54,19 +68,24 @@
 
         .btn {
             background-color: #FF8FB1;
+            /* ชมพูพาสเทลนุ่ม ๆ */
             border: none;
             padding: 12px 26px;
             border-radius: 999px;
             color: white;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(255, 143, 177, 0.35);
             letter-spacing: 0.5px;
+
+            /* เงานุ่ม ๆ ไม่แรง */
+            box-shadow: 0 6px 15px rgba(255, 182, 193, 0.35);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(255, 143, 177, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(255, 182, 193, 0.45);
+            background-color: #FFA6B6;
+            /* hover เข้มขึ้นนิดเดียว */
         }
     </style>
 </head>
