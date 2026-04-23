@@ -98,18 +98,24 @@
         }
 
         @media (max-width: 360px) {
+            body {
+                padding: 12px 0;
+                align-items: center;
+            }
+
             .card {
-                padding: 20px 15px;
-                max-width: 95%;
+                max-height: 92vh;
+                overflow-y: auto;
+                padding: 20px 14px;
             }
 
             .title {
                 font-size: 20px;
-                margin-bottom: 18px;
+                margin-bottom: 16px;
             }
 
             .menu-grid {
-                gap: 12px;
+                gap: 10px;
             }
 
             .menu-item {
@@ -117,30 +123,32 @@
             }
 
             .menu-item img {
-                width: 65px;
+                width: 60px;
             }
 
             .menu-text {
                 font-size: 13px;
             }
-
-            .btn {
-                font-size: 14px;
-                padding: 8px 18px;
-            }
         }
 
         @media (min-width: 361px) and (max-width: 480px) {
-            .card {
-                padding: 25px 20px;
+            body {
+                padding: 16px 0;
+                align-items: center;
             }
 
-            .title {
-                font-size: 22px;
+            .card {
+                max-height: 92vh;
+                overflow-y: auto;
+                padding: 24px 18px;
+            }
+
+            .menu-grid {
+                gap: 14px;
             }
 
             .menu-item img {
-                width: 75px;
+                width: 70px;
             }
 
             .menu-text {
@@ -150,7 +158,8 @@
 
         @media (min-width: 481px) and (max-width: 599px) {
             .card {
-                max-width: 420px;
+                max-height: 94vh;
+                overflow-y: auto;
             }
 
             .menu-item img {
@@ -160,7 +169,8 @@
 
         @media (min-width: 600px) and (max-width: 1024px) {
             .card {
-                max-width: 460px;
+                max-height: 95vh;
+                overflow-y: auto;
             }
 
             .menu-item img {
@@ -169,20 +179,21 @@
         }
 
         @media (max-width: 430px) {
-            .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .card {
+                width: 92%;
             }
         }
 
         @media (orientation: landscape) and (max-height: 420px) {
             body {
-                align-items: flex-start;
+                align-items: center;
                 padding: 10px 0;
             }
 
             .card {
-                margin-top: 10px;
-                padding: 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 14px;
             }
 
             .title {
@@ -190,18 +201,20 @@
                 margin-bottom: 12px;
             }
 
+            .menu-grid {
+                gap: 8px;
+            }
+
+            .menu-item {
+                padding: 10px;
+            }
+
             .menu-item img {
-                width: 60px;
+                width: 55px;
             }
 
             .menu-text {
                 font-size: 12px;
-            }
-
-            .btn {
-                margin-top: 15px;
-                font-size: 13px;
-                padding: 6px 16px;
             }
         }
 
@@ -234,7 +247,7 @@
 
             <div class="menu-item" onclick="go('memory.html')">
                 <img src="img/image4.png">
-                <div class="menu-text">ความทรงจำ  V.1</div>
+                <div class="menu-text">ความทรงจำ V.1</div>
             </div>
 
             <div class="menu-item" onclick="go('V2-calendar.html')">
@@ -249,7 +262,7 @@
 
             <div class="menu-item" onclick="go('V1-quiz.html')">
                 <img src="img/image6.png">
-                <div class="menu-text">เรารู้จักกัน<br>มากแค่ไหน</div>
+                <div class="menu-text">✔ เรารู้จักกัน<br>มากแค่ไหน</div>
             </div>
 
             <div class="menu-item" onclick="go('music.html')">
