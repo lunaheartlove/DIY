@@ -46,8 +46,9 @@
             margin-bottom: 12px;
         }
 
-        .header {
-            margin-bottom: 12px;
+        .title {
+            font-size: 24px;
+            margin-bottom: 15px;
         }
 
         h2 {
@@ -180,12 +181,12 @@
 
         .counter-title {
             margin-bottom: 10px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
         }
 
         #monthYear {
             margin-bottom: 20px;
+            font-size: 18px;
         }
 
         @media (max-width: 360px) {
@@ -357,9 +358,7 @@
 
     <div class="container">
 
-        <div class="header">
-            <h2>ปฏิทินวันครบรอบ</h2>
-        </div>
+        <div class="title">ปฏิทินวันครบรอบ</div>
 
         <div class="legend">
             <div><span class="box-color blue"></span>วันปัจจุบัน</div>
@@ -368,7 +367,7 @@
 
         <div class="calendar-box">
 
-            <h3 id="monthYear"></h3>
+            <div id="monthYear"></div>
 
             <div class="days">
                 <div>อา</div>
@@ -385,7 +384,7 @@
 
         <div class="counter-box">
 
-            <h3 class="counter-title">เราคบกันมาแล้ว</h3>
+            <div class="counter-title">เราคบกันมาแล้ว</div>
 
             <div class="grid">
                 <div class="time-box">
