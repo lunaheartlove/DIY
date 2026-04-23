@@ -28,37 +28,52 @@
         }
 
         .card {
-            width: 320px;
+            width: 90%;
+            max-width: 420px;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 24px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
-            padding: 25px 20px;
+            padding: 30px 25px;
             text-align: center;
             transition: 0.2s;
         }
 
-        /* เอฟเฟกต์สั่น */
         .shake {
             animation: shake 0.3s;
         }
 
         @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            50% { transform: translateX(6px); }
-            75% { transform: translateX(-6px); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            50% {
+                transform: translateX(6px);
+            }
+
+            75% {
+                transform: translateX(-6px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
         .card img {
-            width: 150px;
+            width: 170px;
             margin-bottom: 10px;
         }
 
         .title {
             font-size: 20px;
             color: #5A4B6E;
+            margin-bottom: 5px;
         }
 
         .subtitle {
@@ -71,7 +86,7 @@
             font-size: 14px;
             color: #ff5c8a;
             height: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .pin-box {
@@ -81,9 +96,9 @@
         }
 
         .pin {
-            width: 40px;
-            height: 45px;
-            border-radius: 10px;
+            width: 48px;
+            height: 55px;
+            border-radius: 12px;
             background: #eee;
             font-size: 20px;
             color: #5A4B6E;
@@ -103,8 +118,8 @@
         .key {
             background: #fff;
             border-radius: 12px;
-            padding: 12px;
-            font-size: 18px;
+            padding: 14px;
+            font-size: 20px;
             color: #5A4B6E;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -225,7 +240,7 @@
             }
 
             if (input === correct) {
-                window.location.href = "next.html";
+                window.location.href = "menu.html";
             } else {
                 showError("รหัสผ่านไม่ถูกต้อง", "#FF8FB1");
                 input = "";
