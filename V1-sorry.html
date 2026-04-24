@@ -56,7 +56,7 @@
             display: flex;
             justify-content: center;
             gap: 18px;
-            margin-top: 26px;
+            margin-top: 30px;
         }
 
         .eye {
@@ -68,23 +68,31 @@
             transition: all 0.3s;
         }
 
+        /* ===== หน้าเศร้า: คิ้วลู่ขึ้นด้านใน (↗↖) ===== */
         .sad .eye::before {
             content: "";
             position: absolute;
-            top: -7px;
+            top: -8px;
             left: -3px;
             width: 14px;
             height: 4px;
             background: #5A4B6E;
             border-radius: 2px;
-            transform: rotate(15deg);
+            transform: rotate(-18deg);
             transition: transform 0.3s;
         }
 
         .sad .eye:last-child::before {
-            transform: rotate(-15deg);
+            transform: rotate(18deg);
         }
 
+        /* ตาหยิบเล็ก (half-closed) ตอนเศร้า */
+        .sad .eye {
+            height: 8px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        /* ===== หน้าดีใจ: คิ้วโค้งลง (ตาหยี) ===== */
         .happy .eye::before {
             content: "";
             position: absolute;
@@ -101,10 +109,11 @@
             transform: rotate(8deg);
         }
 
+        /* ===== ปากเศร้า (โค้งลง + มุมปากย้อย) ===== */
         .mouth {
-            margin: 10px auto 0;
-            width: 32px;
-            height: 16px;
+            margin: 12px auto 0;
+            width: 28px;
+            height: 14px;
             border-radius: 0 0 16px 16px;
             border: 3px solid #5A4B6E;
             border-top: none;
@@ -112,34 +121,49 @@
         }
 
         .sad .mouth {
-            border-radius: 16px 16px 0 0;
+            width: 16px;
+            height: 10px;
+            border-radius: 50% 50% 0 0;
             border: 3px solid #5A4B6E;
             border-bottom: none;
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
+        /* ===== น้ำตา (ย้ายตำแหน่งให้ใกล้ตาขึ้น) ===== */
         .tear {
             position: absolute;
-            width: 7px;
-            height: 10px;
-            background: #BFE7FF;
+            width: 8px;
+            height: 12px;
+            background: linear-gradient(180deg, #BFE7FF, #7FBFE0);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            top: 46px;
+            top: 42px;
             opacity: 0;
             transition: opacity 0.3s;
+            box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .tear::before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 1px;
+            width: 2px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
         }
 
         .tear-l {
-            left: 18px;
+            left: 16px;
         }
 
         .tear-r {
-            right: 18px;
+            right: 16px;
         }
 
         .sad .tear {
             opacity: 1;
-            animation: tearDrop 1.2s ease-in infinite;
+            animation: tearDrop 1.4s ease-in infinite;
         }
 
         @keyframes tearDrop {
@@ -148,17 +172,18 @@
                 opacity: 1;
             }
 
-            80% {
-                transform: translateY(14px);
-                opacity: 0.6;
+            70% {
+                transform: translateY(18px);
+                opacity: 0.7;
             }
 
             100% {
-                transform: translateY(14px);
+                transform: translateY(22px);
                 opacity: 0;
             }
         }
 
+        /* ===== แก้มแดงตอนดีใจ ===== */
         .blush {
             position: absolute;
             width: 18px;
@@ -314,18 +339,14 @@
                 margin-bottom: 16px;
             }
 
-            .face-wrap {
-                width: 70px;
-                height: 70px;
-            }
-
+            .face-wrap,
             .face {
                 width: 70px;
                 height: 70px;
             }
 
             .eyes {
-                margin-top: 18px;
+                margin-top: 22px;
                 gap: 12px;
             }
 
@@ -335,8 +356,13 @@
             }
 
             .mouth {
-                width: 24px;
-                height: 12px;
+                width: 22px;
+                height: 11px;
+            }
+
+            .sad .mouth {
+                width: 13px;
+                height: 8px;
             }
 
             .msg-box {
@@ -365,11 +391,7 @@
                 padding: 24px 18px 22px;
             }
 
-            .face-wrap {
-                width: 80px;
-                height: 80px;
-            }
-
+            .face-wrap,
             .face {
                 width: 80px;
                 height: 80px;
@@ -417,19 +439,15 @@
                 margin-bottom: 10px;
             }
 
-            .face-wrap {
+            .face-wrap,
+            .face {
                 width: 60px;
                 height: 60px;
                 margin-bottom: 10px;
             }
 
-            .face {
-                width: 60px;
-                height: 60px;
-            }
-
             .eyes {
-                margin-top: 14px;
+                margin-top: 18px;
             }
 
             .eye {
@@ -438,8 +456,13 @@
             }
 
             .mouth {
-                width: 20px;
-                height: 10px;
+                width: 18px;
+                height: 9px;
+            }
+
+            .sad .mouth {
+                width: 11px;
+                height: 7px;
             }
 
             .msg-box {
@@ -541,7 +564,6 @@
 
         function burstHearts() {
             const wrap = document.getElementById("heartsWrap");
-            const symbols = ["♡", "♥", "♡", "✿"];
             for (let i = 0; i < 28; i++) {
                 const el = document.createElement("div");
                 el.className = "heart-piece";
