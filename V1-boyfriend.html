@@ -48,6 +48,154 @@
             font-size: 22px;
         }
 
+        /* ---- bear ---- */
+        .bear-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .g-all {
+            animation: bob 2.8s ease-in-out infinite;
+            transform-origin: 160px 148px;
+        }
+
+        .g-earL {
+            animation: earW 2.8s ease-in-out infinite;
+            transform-origin: 94px 46px;
+        }
+
+        .g-earR {
+            animation: earW 2.8s ease-in-out .5s infinite;
+            transform-origin: 226px 46px;
+        }
+
+        .g-armL {
+            animation: aL 2.8s ease-in-out infinite;
+            transform-origin: 80px 190px;
+        }
+
+        .g-armR {
+            animation: aR 2.8s ease-in-out infinite;
+            transform-origin: 240px 190px;
+        }
+
+        .sad .g-all {
+            animation: shake .4s ease-in-out 3, droop .7s ease forwards 1.2s;
+            transform-origin: 160px 148px;
+        }
+
+        .sad .g-armL {
+            animation: aLS .8s ease forwards;
+            transform-origin: 80px 190px;
+        }
+
+        .sad .g-armR {
+            animation: aRS .8s ease forwards;
+            transform-origin: 240px 190px;
+        }
+
+        .sad .g-earL,
+        .sad .g-earR {
+            animation: none;
+        }
+
+        #bearTears {
+            opacity: 0;
+            transition: opacity .5s;
+        }
+
+        .sad #bearTears {
+            opacity: 1;
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        @keyframes earW {
+
+            0%,
+            100% {
+                transform: rotate(0deg)
+            }
+
+            30% {
+                transform: rotate(-12deg)
+            }
+
+            70% {
+                transform: rotate(10deg)
+            }
+        }
+
+        @keyframes aL {
+
+            0%,
+            100% {
+                transform: rotate(0deg)
+            }
+
+            50% {
+                transform: rotate(-13deg)
+            }
+        }
+
+        @keyframes aR {
+
+            0%,
+            100% {
+                transform: rotate(0deg)
+            }
+
+            50% {
+                transform: rotate(13deg)
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-5px)
+            }
+
+            75% {
+                transform: translateX(5px)
+            }
+        }
+
+        @keyframes droop {
+            to {
+                transform: translateY(8px) rotate(-3deg)
+            }
+        }
+
+        @keyframes aLS {
+            to {
+                transform: rotate(20deg)
+            }
+        }
+
+        @keyframes aRS {
+            to {
+                transform: rotate(-20deg)
+            }
+        }
+
+        /* ---- end bear ---- */
+
         .subtitle {
             letter-spacing: 0.2px;
             line-height: 1.8;
@@ -234,18 +382,6 @@
             }
         }
 
-        @media (min-width: 481px) and (max-width: 599px) {
-            .card {
-                max-width: 400px;
-            }
-        }
-
-        @media (min-width: 600px) and (max-width: 1024px) {
-            .card {
-                max-width: 420px;
-            }
-        }
-
         @media (max-width: 430px) {
             .card {
                 width: 92%;
@@ -255,7 +391,6 @@
         @media (orientation: landscape) and (max-height: 420px) {
             body {
                 padding: 10px 0;
-                align-items: center;
             }
 
             .card {
@@ -315,6 +450,132 @@
 
         <div class="title">เป็นแฟนกันนะ</div>
 
+        <!-- ตุ๊กตาหมี -->
+        <div class="bear-wrap" id="bearWrap">
+            <svg viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg"
+                style="width:260px;height:221px;overflow:visible;">
+                <g class="g-all">
+
+                    <!-- หูซ้าย -->
+                    <g class="g-earL">
+                        <circle cx="94" cy="46" r="28" fill="#DBAFC8" />
+                        <circle cx="94" cy="46" r="17" fill="#C998B8" />
+                    </g>
+
+                    <!-- หูขวา -->
+                    <g class="g-earR">
+                        <circle cx="226" cy="46" r="28" fill="#DBAFC8" />
+                        <circle cx="226" cy="46" r="17" fill="#C998B8" />
+                    </g>
+
+                    <!-- แขนซ้าย + ดอกไม้ -->
+                    <g class="g-armL">
+                        <ellipse cx="74" cy="182" rx="26" ry="20" fill="#DFB8D6" transform="rotate(-35,74,182)" />
+                        <circle cx="56" cy="202" r="20" fill="#D0A8C8" />
+                        <circle cx="44" cy="190" r="8" fill="#C898BC" />
+                        <circle cx="54" cy="184" r="8" fill="#C898BC" />
+                        <circle cx="65" cy="183" r="8" fill="#C898BC" />
+                        <!-- ก้านดอกไม้ -->
+                        <line x1="52" y1="194" x2="38" y2="162" stroke="#7BB85A" stroke-width="3.5"
+                            stroke-linecap="round" />
+                        <!-- กลีบดอก -->
+                        <circle cx="38" cy="155" r="7" fill="#F080A8" />
+                        <circle cx="28" cy="148" r="7" fill="#F080A8" />
+                        <circle cx="48" cy="148" r="7" fill="#F080A8" />
+                        <circle cx="25" cy="159" r="7" fill="#F080A8" />
+                        <circle cx="51" cy="159" r="7" fill="#F080A8" />
+                        <!-- เกสร -->
+                        <circle cx="38" cy="153" r="6.5" fill="#FFD93D" />
+                        <circle cx="38" cy="153" r="3" fill="#F0B800" />
+                        <!-- ใบ -->
+                        <ellipse cx="50" cy="172" rx="8" ry="4" fill="#8DC86A" transform="rotate(30,50,172)" />
+                    </g>
+
+                    <!-- แขนขวา -->
+                    <g class="g-armR">
+                        <ellipse cx="246" cy="182" rx="26" ry="20" fill="#DFB8D6" transform="rotate(35,246,182)" />
+                        <circle cx="264" cy="202" r="20" fill="#D0A8C8" />
+                        <circle cx="276" cy="190" r="8" fill="#C898BC" />
+                        <circle cx="266" cy="184" r="8" fill="#C898BC" />
+                        <circle cx="255" cy="183" r="8" fill="#C898BC" />
+                    </g>
+
+                    <!-- ตัว -->
+                    <ellipse cx="160" cy="200" rx="88" ry="70" fill="#E8C4DC" />
+
+                    <!-- หัว -->
+                    <circle cx="160" cy="108" r="82" fill="#E8C4DC" />
+
+                    <!-- เส้นขนบนหัว -->
+                    <path d="M108 52 Q116 42 124 52" fill="none" stroke="#C998B8" stroke-width="2"
+                        stroke-linecap="round" opacity="0.5" />
+                    <path d="M190 46 Q198 36 206 46" fill="none" stroke="#C998B8" stroke-width="2"
+                        stroke-linecap="round" opacity="0.5" />
+
+                    <!-- ปาก/ปุ่มจมูก -->
+                    <ellipse cx="160" cy="132" rx="36" ry="26" fill="#D9AECE" />
+                    <ellipse cx="160" cy="120" rx="10" ry="7" fill="#8B5C80" />
+
+                    <!-- ปากยิ้ม -->
+                    <path id="bearMouthH" d="M146 135 Q160 149 174 135" fill="none" stroke="#8B5C80" stroke-width="3"
+                        stroke-linecap="round" />
+                    <!-- ปากเศร้า -->
+                    <path id="bearMouthS" d="M146 147 Q160 133 174 147" fill="none" stroke="#8B5C80" stroke-width="3"
+                        stroke-linecap="round" opacity="0" />
+
+                    <!-- ตา -->
+                    <circle cx="136" cy="104" r="12" fill="#5A3050" />
+                    <circle cx="184" cy="104" r="12" fill="#5A3050" />
+                    <circle cx="131" cy="99" r="5" fill="white" />
+                    <circle cx="179" cy="99" r="5" fill="white" />
+                    <circle cx="133" cy="107" r="2.5" fill="white" opacity="0.4" />
+                    <circle cx="181" cy="107" r="2.5" fill="white" opacity="0.4" />
+
+                    <!-- คิ้ว -->
+                    <path id="bearBrowL" d="M122 90 Q136 82 149 90" fill="none" stroke="#8B5C80" stroke-width="3"
+                        stroke-linecap="round" />
+                    <path id="bearBrowR" d="M171 90 Q184 82 198 90" fill="none" stroke="#8B5C80" stroke-width="3"
+                        stroke-linecap="round" />
+
+                    <!-- แก้ม -->
+                    <ellipse cx="108" cy="125" rx="18" ry="11" fill="#F0A0C0" opacity="0.4" />
+                    <ellipse cx="212" cy="125" rx="18" ry="11" fill="#F0A0C0" opacity="0.4" />
+
+                    <!-- น้ำตา (ซ่อนไว้) -->
+                    <g id="bearTears">
+                        <ellipse cx="136" cy="116" rx="4.5" ry="7" fill="#AED6F8" opacity="0.92" />
+                        <ellipse cx="184" cy="116" rx="4.5" ry="7" fill="#AED6F8" opacity="0.92" />
+                    </g>
+
+                    <!-- ขา -->
+                    <ellipse cx="122" cy="258" rx="32" ry="20" fill="#D0A8C8" />
+                    <ellipse cx="198" cy="258" rx="32" ry="20" fill="#D0A8C8" />
+
+                    <!-- ท้อง -->
+                    <ellipse cx="160" cy="212" rx="52" ry="40" fill="#EDD4E8" />
+
+                    <!-- โบว์แถบ -->
+                    <rect x="124" y="158" width="72" height="14" rx="7" fill="#C060A0" />
+
+                    <!-- โบว์ซ้าย -->
+                    <path d="M128 163 C102 146 90 155 93 167 C96 179 112 180 128 169 Z" fill="#D470B4" />
+                    <path d="M118 151 Q113 164 120 175" fill="none" stroke="#A84090" stroke-width="1.3"
+                        stroke-linecap="round" opacity="0.45" />
+
+                    <!-- โบว์ขวา -->
+                    <path d="M192 163 C218 146 230 155 227 167 C224 179 208 180 192 169 Z" fill="#D470B4" />
+                    <path d="M202 151 Q207 164 200 175" fill="none" stroke="#A84090" stroke-width="1.3"
+                        stroke-linecap="round" opacity="0.45" />
+
+                    <!-- ปมโบว์ -->
+                    <ellipse cx="160" cy="165" rx="14" ry="10" fill="#C060A0" />
+                    <ellipse cx="160" cy="165" rx="8" ry="5.5" fill="#E484C4" />
+
+                </g>
+            </svg>
+        </div>
+        <!-- end ตุ๊กตาหมี -->
+
         <div class="subtitle" id="subtitle">
             คำถามนี้สำคัญกับเรามากเลยนะ
         </div>
@@ -356,12 +617,15 @@
     <script>
         const noBtn = document.getElementById("noBtn");
         const subtitle = document.getElementById("subtitle");
-
         const exciteBar = document.getElementById("exciteBar");
         const sadBar = document.getElementById("sadBar");
+        const bearWrap = document.getElementById("bearWrap");
+        const bearMouthH = document.getElementById("bearMouthH");
+        const bearMouthS = document.getElementById("bearMouthS");
+        const bearBrowL = document.getElementById("bearBrowL");
+        const bearBrowR = document.getElementById("bearBrowR");
 
         let value = 10;
-
         exciteBar.style.width = value + "%";
         sadBar.style.width = value + "%";
 
@@ -373,20 +637,25 @@
             "เกือบแล้วนะ...",
             "อีกนิดเดียวเอง"
         ];
-
         let msgIndex = 0;
 
         noBtn.addEventListener("click", () => {
+            // หมีเศร้า
+            bearWrap.classList.add("sad");
+            bearMouthH.setAttribute("opacity", "0");
+            bearMouthS.setAttribute("opacity", "1");
+            bearBrowL.setAttribute("d", "M122 90 Q136 98 149 90");
+            bearBrowR.setAttribute("d", "M171 90 Q184 98 198 90");
 
+            // progress bar
             value += 15;
             if (value > 100) value = 100;
-
             exciteBar.style.width = value + "%";
             sadBar.style.width = value + "%";
-
             exciteBar.innerText = value + "%";
             sadBar.innerText = value + "%";
 
+            // ข้อความ
             if (msgIndex < messages.length) {
                 subtitle.textContent = messages[msgIndex];
                 msgIndex++;
@@ -397,6 +666,13 @@
         });
 
         function acceptLove() {
+            // หมียิ้ม
+            bearWrap.classList.remove("sad");
+            bearMouthH.setAttribute("opacity", "1");
+            bearMouthS.setAttribute("opacity", "0");
+            bearBrowL.setAttribute("d", "M122 90 Q136 82 149 90");
+            bearBrowR.setAttribute("d", "M171 90 Q184 82 198 90");
+
             document.getElementById("popup").classList.add("show");
         }
     </script>
